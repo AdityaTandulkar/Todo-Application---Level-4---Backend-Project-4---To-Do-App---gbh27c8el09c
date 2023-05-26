@@ -109,6 +109,20 @@ const signupUser = async (req, res) => {
     const token = req.body.token;
 
     //Write your code here.
+    let decodedToken;
+    if(token){
+        try{
+            decodedToken = jwt.verify(token, JWT_SECRET);
+        }catch(err){
+            return res.status(500).json({ message: 'Internal Server Error' , status: 'fail', error: err.message })
+        }
+    }
+    else{
+        return res.status(401).json({status: 'fail', message: "Authentication failed: Missing token."})
+    }
+
+    console.log(res.cookies);
+    return res.status(200).json({status: 'success', message: "Logged out successfully."})
 };
 
 module.exports = { loginUser , signupUser, logout };
