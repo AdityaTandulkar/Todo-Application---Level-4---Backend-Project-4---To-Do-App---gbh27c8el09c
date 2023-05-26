@@ -139,6 +139,8 @@ const getallTask = async (req, res) => {
     //Write your code here.
     const status = req.query;
     const token = req.body;
+    console.log(status);
+    console.log(token);
     let decodedToken;
 
     try{
