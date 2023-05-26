@@ -113,6 +113,7 @@ const signupUser = async (req, res) => {
     if(token){
         try{
             decodedToken = jwt.verify(token, JWT_SECRET);
+            res.clearCookie().status(200).json({status: 'success', message: "Logged out successfully."});
         }catch(err){
             return res.status(500).json({ message: 'Internal Server Error' , status: 'fail', error: err.message })
         }
@@ -120,9 +121,6 @@ const signupUser = async (req, res) => {
     else{
         return res.status(401).json({status: 'fail', message: "Authentication failed: Missing token."})
     }
-
-    console.log(res.cookies);
-    return res.status(200).json({status: 'success', message: "Logged out successfully."})
 };
 
 module.exports = { loginUser , signupUser, logout };
